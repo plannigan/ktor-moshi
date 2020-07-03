@@ -9,10 +9,10 @@ coverage:
 
   status:
     project: yes
+      # Disable failures while the coverage is poor
+      informational: true
     patch: yes
     changes: yes
-    # Disable failures while the coverage is poor
-    informational: true
 
 comment:
   layout: "header, diff, files"
