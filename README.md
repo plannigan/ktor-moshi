@@ -1,3 +1,7 @@
+[![Kotlin](https://img.shields.io/badge/kotlin-1.3.10-blue.svg)](http://kotlinlang.org)
+[![CircleCI](https://circleci.com/gh/plannigan/ktor-moshi.svg?style=svg)](https://circleci.com/gh/plannigan/ktor-moshi)
+[![codecov](https://codecov.io/gh/plannigan/ktor-moshi/branch/master/graph/badge.svg)](https://codecov.io/gh/plannigan/ktor-moshi)
+
 # Ktor: Moshi
 
 The Moshi feature allows you to handle JSON content in your application easily using the [Moshi](https://github.com/square/moshi/) library.
