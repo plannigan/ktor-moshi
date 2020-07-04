@@ -14,12 +14,8 @@ import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
-import io.ktor.server.testing.contentType
-import io.ktor.server.testing.handleRequest
-import io.ktor.server.testing.setBody
-import io.ktor.server.testing.withTestApplication
+import io.ktor.server.testing.*
 import org.junit.Test
-import kotlin.test.fail
 
 class MoshiConverterTest {
 
@@ -62,7 +58,7 @@ class MoshiConverterTest {
 
   @Test fun codegen() = withTestApplication {
     application.install(ContentNegotiation) {
-      moshi { }
+      moshi()
     }
     application.routing {
       val bar = Bar(id = "bar-123", count = 50)
@@ -97,6 +93,43 @@ class MoshiConverterTest {
     }
   }
 
+  @Test fun constructInstance_useDefaultInstance_handlesCodgen() =
+  withTestApplication {
+    application.install(ContentNegotiation) {
+      register(ContentType.Application.Json, MoshiConverter())
+    }
+    application.routing {
+      val bar = Bar(id = "bar-123", count = 50)
+      get("/") {
+        call.respond(bar)
+      }
+      post("/") {
+        val request = call.receive<Bar>()
+        val text = request.toString()
+        call.respond(text)
+      }
+    }
+
+    handleRequest(HttpMethod.Get, "/") {
+      addHeader("Accept", "application/json")
+    }.response.let { response ->
+      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
+      assertThat(response.content).isNotNull()
+      assertThat(response.content).isEqualTo("""{"id":"bar-123","count":50}""")
+      assertThat(response.contentType()).isEqualTo(ContentType.Application.Json.withCharset(Charsets.UTF_8))
+    }
+
+    handleRequest(HttpMethod.Post, "/") {
+      addHeader("Accept", "application/json")
+      addHeader("Content-Type", "application/json")
+      setBody("""{"id":"bar-543","count":-1}""")
+    }.response.let { response ->
+      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
+      assertThat(response.content).isNotNull()
+      assertThat(response.content).isEqualTo("Bar(id=bar-543, count=-1)")
+      assertThat(response.contentType()).isEqualTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8))
+    }
+  }
 }
 
 data class Foo(val id: Int, val name: String)

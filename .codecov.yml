@@ -9,9 +9,6 @@ coverage:
 
   status:
     project: yes
-      default:
-        # Disable failures while the coverage is poor
-        informational: true
     patch: yes
     changes: yes
 
