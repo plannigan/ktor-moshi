@@ -5,7 +5,7 @@ object Versions {
     const val okio = "2.6.0"
     const val ktor = "1.3.2"
     const val truth = "1.0.1"
-    const val junit = "4.12"
+    const val junit = "5.6.2"
     const val logback = "1.2.3"
 }
 object Groups {
@@ -14,7 +14,7 @@ object Groups {
     const val ktor = "io.ktor"
     const val logback = "ch.qos.logback"
     const val truth = "com.google.truth"
-    const val junit = "junit"
+    const val junit = "org.junit.jupiter"
 }
 
 object Deps {
@@ -32,5 +32,8 @@ object Deps {
     const val okio = "${Groups.okio}:okio:${Versions.okio}"
     const val logback = "${Groups.logback}:logback-classic:${Versions.logback}"
     const val truth = "${Groups.truth}:truth:${Versions.truth}"
-    const val junit = "${Groups.junit}:junit:${Versions.junit}"
+    object Junit {
+        const val api = "${Groups.junit}:junit-jupiter-api:${Versions.junit}"
+        const val engine = "${Groups.junit}:junit-jupiter-engine:${Versions.junit}"
+    }
 }

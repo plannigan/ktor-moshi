@@ -24,6 +24,7 @@ dependencies {
     implementation(Deps.Moshi.reflection)
     "kapt"(Deps.Moshi.codeGen)
 
-    testImplementation(Deps.junit)
+    testImplementation(Deps.Junit.api)
+    testRuntimeOnly(Deps.Junit.engine)
     testImplementation(Deps.truth)
 }
