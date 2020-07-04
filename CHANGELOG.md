@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         * Update okio dependency to `2.6.0`
         * Update ktor dependency to `1.3.2`
     * Test:
+        * Update junit dependency to `5.6.2`
         * Update truth dependency to `1.0.1`
     * Sample:
         * Update logback dependency to `1.2.3`

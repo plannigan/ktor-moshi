@@ -16,7 +16,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.testing.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class MoshiConverterTest {
 

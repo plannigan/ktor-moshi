@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
@@ -15,10 +16,25 @@ dependencies {
     implementation(Deps.Moshi.reflection)
     implementation(Deps.okio)
 
-    testImplementation(Deps.junit)
+    testImplementation(Deps.Junit.api)
+    testRuntimeOnly(Deps.Junit.engine)
     testImplementation(Deps.truth)
     testImplementation(Deps.Ktor.testHost)
     "kaptTest"(Deps.Moshi.codeGen)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+
+    testLogging {
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+        exceptionFormat = TestExceptionFormat.FULL
+    }
+
+    reports.html.isEnabled = true
+    reports.junitXml.isEnabled = true
 }
 
 val check by tasks
