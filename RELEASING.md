@@ -3,7 +3,7 @@ Releasing
 
 `X.Y.Z` used as a stand-in for the new version.
 
-1. Checkout `master`: `git checkout master`
+1. Checkout `main`: `git checkout main`
 1. Ensure the local copy is up to date: `git pull --ff-only`
 1. Create a new branch `git checkout -b bump_to_X.Y.Z`
 1. Change the `version` in `build.gradle.kts` to the desired version.
