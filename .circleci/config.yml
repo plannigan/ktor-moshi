@@ -47,22 +47,28 @@ workflows:
 
 
 commands:
-  dependency_cache:
+  with_gradle_cache:
     description: "restore dependency cache from previous runs & populate cache for future runs"
+    parameters:
+      task:
+        type: steps
     steps:
-      # Download and cache dependencies
+      - run:
+          name: Create cache key for build scripts and dependencies
+          command: |
+            mkdir -p /tmp
+            find ./buildSrc/ -name "Dependencies.kt" -type f > /tmp/to_hash.txt
+            find ./gradle/ -name "gradle-wrapper.properties" -type f >> /tmp/to_hash.txt
+            find . -name "*.gradle.kts" -type f >> /tmp/to_hash.txt
+            cat /tmp/to_hash.txt | sort | xargs sha256sum > /tmp/gradle_cache_key.sha256
       - restore_cache:
-          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: ./gradlew dependencies
+          key: v1-gradle-{{ checksum "tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
+      - steps: << parameters.task >>
       - save_cache:
           paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+            - ~/.gradle/caches/
+            - ~/.gradle/wrapper/
+          key: v1-gradle-{{ checksum "tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
 
 
 jobs:
@@ -70,10 +76,10 @@ jobs:
     <<: *job_defaults
     steps:
       - checkout
-      - dependency_cache
 
-      # run tests!
-      - run: ./gradlew check
+      - with_gradle_cache:
+          - task:
+              - run: ./gradlew check
 
       # publish results
       - store_test_results:
@@ -88,8 +94,11 @@ jobs:
     <<: *job_defaults
     steps:
       - checkout
-      - dependency_cache
-      - run: ./gradlew assemble
+
+      - with_gradle_cache:
+          - task:
+              - run: ./gradlew assemble
+
       - store_artifacts:
           path: library/build/libs
 
@@ -97,5 +106,7 @@ jobs:
     <<: *job_defaults
     steps:
       - checkout
-      - dependency_cache
-      - run: ./gradlew bintrayUpload
+
+      - with_gradle_cache:
+          - task:
+              - run: ./gradlew bintrayUpload
