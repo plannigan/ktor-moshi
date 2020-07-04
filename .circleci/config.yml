@@ -51,6 +51,7 @@ commands:
     description: "restore dependency cache from previous runs & populate cache for future runs"
     parameters:
       task:
+        description: "Steps to be wrapped by gradle caching"
         type: steps
     steps:
       - run:
@@ -78,8 +79,8 @@ jobs:
       - checkout
 
       - with_gradle_cache:
-          - task:
-              - run: ./gradlew check
+          task:
+            - run: ./gradlew check
 
       # publish results
       - store_test_results:
@@ -96,8 +97,8 @@ jobs:
       - checkout
 
       - with_gradle_cache:
-          - task:
-              - run: ./gradlew assemble
+          task:
+            - run: ./gradlew assemble
 
       - store_artifacts:
           path: library/build/libs
@@ -108,5 +109,5 @@ jobs:
       - checkout
 
       - with_gradle_cache:
-          - task:
-              - run: ./gradlew bintrayUpload
+          task:
+            - run: ./gradlew bintrayUpload
