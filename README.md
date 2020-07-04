@@ -55,7 +55,7 @@ routing {
 Add a gradle dependency to your project:
 
 ```groovy
-implementation 'com.hypercubetools:ktor-moshi-server:1.0.1'
+implementation 'com.hypercubetools:ktor-moshi-server:2.0.0'
 ```
 
 ## Fork
