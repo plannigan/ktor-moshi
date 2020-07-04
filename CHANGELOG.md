@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* Update moshi dependency to `1.9.3`
+
 ## [2.0.0] - 2020-07-03
 
 First release of the fork. This release doesn't contain any implementation or API changes. The only changes are to the
