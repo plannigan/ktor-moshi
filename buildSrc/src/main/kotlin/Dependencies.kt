@@ -6,7 +6,7 @@ object Versions {
     const val ktor = "1.3.2"
     const val truth = "1.0.1"
     const val junit = "4.12"
-    const val logback = "1.2.1"
+    const val logback = "1.2.3"
 }
 object Groups {
     const val moshi = "com.squareup.moshi"
