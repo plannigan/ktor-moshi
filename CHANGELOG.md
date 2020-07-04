@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* Update project dependencies:
+    * Package:
+        * Update moshi dependency to `1.9.3`
+        * Update okio dependency to `2.6.0`
+        * Update ktor dependency to `1.3.2`
+    * Test:
+        * Update truth dependency to `1.0.1`
+    * Sample:
+        * Update logback dependency to `1.2.3`
+
 ## [2.0.0] - 2020-07-03
 
 First release of the fork. This release doesn't contain any implementation or API changes. The only changes are to the

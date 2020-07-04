@@ -1,12 +1,12 @@
 // Version information for dependencies
 
 object Versions {
-    const val moshi = "1.8.0"
-    const val okio = "2.1.0"
-    const val ktor = "1.0.0"
-    const val truth = "0.39"
+    const val moshi = "1.9.3"
+    const val okio = "2.6.0"
+    const val ktor = "1.3.2"
+    const val truth = "1.0.1"
     const val junit = "4.12"
-    const val logback = "1.2.1"
+    const val logback = "1.2.3"
 }
 object Groups {
     const val moshi = "com.squareup.moshi"
