@@ -3,7 +3,7 @@
 object Versions {
     const val moshi = "1.9.3"
     const val okio = "2.6.0"
-    const val ktor = "1.0.0"
+    const val ktor = "1.3.2"
     const val truth = "0.39"
     const val junit = "4.12"
     const val logback = "1.2.1"
