@@ -63,13 +63,13 @@ commands:
             find . -name "*.gradle.kts" -type f >> /tmp/to_hash.txt
             cat /tmp/to_hash.txt | sort | xargs sha256sum > /tmp/gradle_cache_key.sha256
       - restore_cache:
-          key: v1-gradle-{{ checksum "tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
+          key: v1-gradle-{{ checksum "/tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
       - steps: << parameters.task >>
       - save_cache:
           paths:
             - ~/.gradle/caches/
             - ~/.gradle/wrapper/
-          key: v1-gradle-{{ checksum "tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
+          key: v1-gradle-{{ checksum "/tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
 
 
 jobs:
