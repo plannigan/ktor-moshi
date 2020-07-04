@@ -4,7 +4,7 @@ object Versions {
     const val moshi = "1.9.3"
     const val okio = "2.6.0"
     const val ktor = "1.3.2"
-    const val truth = "1.0.1"
+    const val hamkrest = "1.7.0.3"
     const val junit = "5.6.2"
     const val logback = "1.2.3"
 }
@@ -13,7 +13,7 @@ object Groups {
     const val okio = "com.squareup.okio"
     const val ktor = "io.ktor"
     const val logback = "ch.qos.logback"
-    const val truth = "com.google.truth"
+    const val hamkrest = "com.natpryce"
     const val junit = "org.junit.jupiter"
 }
 
@@ -31,7 +31,7 @@ object Deps {
     }
     const val okio = "${Groups.okio}:okio:${Versions.okio}"
     const val logback = "${Groups.logback}:logback-classic:${Versions.logback}"
-    const val truth = "${Groups.truth}:truth:${Versions.truth}"
+    const val hamkrest = "${Groups.hamkrest}:hamkrest:${Versions.hamkrest}"
     object Junit {
         const val api = "${Groups.junit}:junit-jupiter-api:${Versions.junit}"
         const val engine = "${Groups.junit}:junit-jupiter-engine:${Versions.junit}"

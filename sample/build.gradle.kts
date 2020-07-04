@@ -26,5 +26,5 @@ dependencies {
 
     testImplementation(Deps.Junit.api)
     testRuntimeOnly(Deps.Junit.engine)
-    testImplementation(Deps.truth)
+    testImplementation(Deps.hamkrest)
 }
