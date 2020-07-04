@@ -1,15 +1,21 @@
 Releasing
 ========
 
- 1. Change the version in `gradle.properties` to a non-SNAPSHOT version.
- 2. Update the `CHANGELOG.md` for the impending release.
- 3. Update the `README.md` with the new version.
- 4. `git commit -am "Prepare for release X.Y.Z."` (where X.Y.Z is the new version)
- 5. `./gradlew clean uploadArchives`.
- 6. Visit [Sonatype Nexus](https://oss.sonatype.org/) and promote the artifact.
- 7. `git tag -a X.Y.X -m "Version X.Y.Z"` (where X.Y.Z is the new version)
- 8. Update the `gradle.properties` to the next SNAPSHOT version.
- 9. `git commit -am "Prepare next development version."`
- 10. `git push && git push --tags`
+`X.Y.Z` used as a stand-in for the new version.
 
-If step 5 or 6 fails, drop the Sonatype repo, fix the problem, commit, and start again at step 5.
+1. Checkout `master`: `git checkout master`
+1. Ensure the local copy is up to date: `git pull --ff-only`
+1. Create a new branch `git checkout -b bump_to_X.Y.Z`
+1. Change the `version` in `build.gradle.kts` to the desired version.
+1. Update the `CHANGELOG.md` for the impending release, including the date (`YYYY-MM-DD`).
+1. Update the `README.md` with the new version.
+1. Stage the edited files: `git add build.gradle.kts CHANGELOG.md README.md`
+1. Commit the edited files: `git commit -m "Bump version to X.Y.Z."`
+1. Push the changes: `git push --set-upstream origin bump_to_X.Y.Z`
+1. Create a new pull request & get it merged
+1. Create a new Github release:
+    * tag name: vX.Y.Z
+    * release name: vX.Y.Z Release
+1. Verify the pipeline published the package to [Bintray][bintray] successfully.
+
+[bintray]: https://bintray.com/plannigan/com.hypercubetools/ 
