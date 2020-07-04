@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Update moshi dependency to `1.9.3`
+* Update okio dependency to `2.6.0`
 
 ## [2.0.0] - 2020-07-03
 
