@@ -32,7 +32,7 @@ tasks.withType<JacocoCoverageVerification> {
         rule {
             element = "BUNDLE"
             excludes = listOf("com.jacoco.dto.*")
-            limit("INSTRUCTION", 0.65)
+            limit("INSTRUCTION", 0.90)
             limit("BRANCH", 0.5)
         }
     }
