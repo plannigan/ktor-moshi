@@ -11,15 +11,16 @@ plugins {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib"))
     implementation(Deps.Ktor.server)
-    implementation(Deps.Moshi.reflection)
+    implementation(Deps.Moshi.moshi)
     implementation(Deps.okio)
 
     testImplementation(Deps.Junit.api)
     testRuntimeOnly(Deps.Junit.engine)
     testImplementation(Deps.hamkrest)
     testImplementation(Deps.Ktor.testHost)
+    testImplementation(Deps.Moshi.reflection)
     testImplementation(kotlin("reflect"))
     "kaptTest"(Deps.Moshi.codeGen)
 }
