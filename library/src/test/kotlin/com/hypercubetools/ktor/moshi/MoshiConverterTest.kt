@@ -173,6 +173,79 @@ class MoshiConverterTest {
       routing(SOME_BAR, capturedBody)
     }
   }
+
+  @Nested
+  inner class DirectRegister {
+    @Test
+    fun getRequest_acceptJson_responseObjectSerializedToJson() {
+      withTestApplication({
+        registerConfig()
+      }) {
+        handleRequest(HttpMethod.Get, SOME_PATH) {
+          accept(ContentType.Application.Json)
+        }
+      }.apply {
+        assertAll(
+                { assertThat(response.status(), equalTo(HttpStatusCode.OK)) },
+                { assertThat(response.contentType(), utf8Content(ContentType.Application.Json)) },
+                { assertThat(response.content, equalTo(SOME_BAR_JSON)) }
+        )
+      }
+    }
+
+    @Test
+    fun getRequest_acceptNotJson_notAcceptable() {
+      withTestApplication({
+        registerConfig()
+      }) {
+        handleRequest(HttpMethod.Get, SOME_PATH) {
+          accept(ContentType.Text.Plain)
+        }
+      }.apply {
+        assertThat(response.status(), equalTo(HttpStatusCode.NotAcceptable))
+      }
+    }
+
+    @Test
+    fun postRequest_contentJson_bodyDeserializesToValue() {
+      val capturedBody = Box<Bar>()
+      withTestApplication({
+        registerConfig(capturedBody)
+      }) {
+        handleRequest(HttpMethod.Post, SOME_PATH) {
+          contentType(ContentType.Application.Json)
+          setBody(SOME_BAR_JSON)
+        }
+      }.apply {
+        assertAll(
+                { assertThat(response.status(), equalTo(HttpStatusCode.OK)) },
+                { assertThat(capturedBody.value, equalTo(SOME_BAR)) }
+        )
+      }
+    }
+
+    @Test
+    fun postRequest_contentNotJson_unsupported() {
+      val capturedBody = Box<Bar>()
+      withTestApplication({
+        registerConfig(capturedBody)
+      }) {
+        handleRequest(HttpMethod.Post, SOME_PATH) {
+          contentType(ContentType.Text.Plain)
+          setBody(SOME_BAR_JSON)
+        }
+      }.apply {
+        assertThat(response.status(), equalTo(HttpStatusCode.UnsupportedMediaType))
+      }
+    }
+
+    private fun Application.registerConfig(capturedBody: Box<Bar>? = null) {
+      install(ContentNegotiation) {
+        register(ContentType.Application.Json, MoshiConverter())
+      }
+      routing(SOME_BAR, capturedBody)
+    }
+  }
 }
 
 private inline fun <reified T : Any> Application.routing(getResponse: T, capturedBody: Box<T>? = null) {
