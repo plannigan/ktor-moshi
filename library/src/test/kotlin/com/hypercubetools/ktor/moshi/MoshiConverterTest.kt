@@ -175,31 +175,34 @@ class MoshiConverterTest {
   }
 
   @Nested
-  inner class DirectRegister {
+  inner class RegisterNonJson {
+    private val registeredNonJson = ContentType.Text.Plain
+    private val otherNonJson = ContentType.Text.Xml
+
     @Test
-    fun getRequest_acceptJson_responseObjectSerializedToJson() {
+    fun getRequest_acceptRegistered_responseObjectSerializedToJson() {
       withTestApplication({
         registerConfig()
       }) {
         handleRequest(HttpMethod.Get, SOME_PATH) {
-          accept(ContentType.Application.Json)
+          accept(registeredNonJson)
         }
       }.apply {
         assertAll(
                 { assertThat(response.status(), equalTo(HttpStatusCode.OK)) },
-                { assertThat(response.contentType(), utf8Content(ContentType.Application.Json)) },
+                { assertThat(response.contentType(), utf8Content(registeredNonJson)) },
                 { assertThat(response.content, equalTo(SOME_BAR_JSON)) }
         )
       }
     }
 
     @Test
-    fun getRequest_acceptNotJson_notAcceptable() {
+    fun getRequest_acceptNotRegistered_notAcceptable() {
       withTestApplication({
         registerConfig()
       }) {
         handleRequest(HttpMethod.Get, SOME_PATH) {
-          accept(ContentType.Text.Plain)
+          accept(otherNonJson)
         }
       }.apply {
         assertThat(response.status(), equalTo(HttpStatusCode.NotAcceptable))
@@ -207,13 +210,13 @@ class MoshiConverterTest {
     }
 
     @Test
-    fun postRequest_contentJson_bodyDeserializesToValue() {
+    fun postRequest_contentRegistered_bodyDeserializesToValue() {
       val capturedBody = Box<Bar>()
       withTestApplication({
         registerConfig(capturedBody)
       }) {
         handleRequest(HttpMethod.Post, SOME_PATH) {
-          contentType(ContentType.Application.Json)
+          contentType(registeredNonJson)
           setBody(SOME_BAR_JSON)
         }
       }.apply {
@@ -225,13 +228,13 @@ class MoshiConverterTest {
     }
 
     @Test
-    fun postRequest_contentNotJson_unsupported() {
+    fun postRequest_contentNotRegistered_unsupported() {
       val capturedBody = Box<Bar>()
       withTestApplication({
         registerConfig(capturedBody)
       }) {
         handleRequest(HttpMethod.Post, SOME_PATH) {
-          contentType(ContentType.Text.Plain)
+          contentType(otherNonJson)
           setBody(SOME_BAR_JSON)
         }
       }.apply {
@@ -241,7 +244,7 @@ class MoshiConverterTest {
 
     private fun Application.registerConfig(capturedBody: Box<Bar>? = null) {
       install(ContentNegotiation) {
-        register(ContentType.Application.Json, MoshiConverter())
+        register(registeredNonJson, MoshiConverter())
       }
       routing(SOME_BAR, capturedBody)
     }
