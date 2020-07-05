@@ -97,7 +97,7 @@ class MoshiConverterTest {
           add(KotlinJsonAdapterFactory())
         }
       }
-      routing(capturedBody)
+      routing(SOME_FOO, capturedBody)
     }
   }
 
@@ -170,15 +170,15 @@ class MoshiConverterTest {
       install(ContentNegotiation) {
         moshi()
       }
-      routing(capturedBody)
+      routing(SOME_BAR, capturedBody)
     }
   }
 }
 
-private inline fun <reified T : Any> Application.routing(capturedBody: Box<T>? = null) {
+private inline fun <reified T : Any> Application.routing(getResponse: T, capturedBody: Box<T>? = null) {
   routing {
     get(SOME_PATH) {
-      call.respond(SOME_FOO)
+      call.respond(getResponse)
     }
     post(SOME_PATH) {
       val request = call.receive<T>()
