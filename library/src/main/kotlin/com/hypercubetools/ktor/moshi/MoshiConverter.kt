@@ -35,8 +35,7 @@ class MoshiConverter(private val moshi: Moshi = Moshi.Builder().build()) : Conte
  * data.
  */
 fun ContentNegotiation.Configuration.moshi(moshi: Moshi = Moshi.Builder().build()) {
-  val converter = MoshiConverter(moshi)
-  register(ContentType.Application.Json, converter)
+  register(ContentType.Application.Json, MoshiConverter(moshi))
 }
 
 /**
@@ -44,8 +43,5 @@ fun ContentNegotiation.Configuration.moshi(moshi: Moshi = Moshi.Builder().build(
  * `application/json` data.  The supplied block is used to configure the builder.
  */
 fun ContentNegotiation.Configuration.moshi(block: Moshi.Builder.() -> Unit) {
-  val builder = Moshi.Builder()
-  builder.apply(block)
-  val converter = MoshiConverter(builder.build())
-  register(ContentType.Application.Json, converter)
+  moshi(Moshi.Builder().apply(block).build())
 }
