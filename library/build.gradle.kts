@@ -20,6 +20,7 @@ dependencies {
     testRuntimeOnly(Deps.Junit.engine)
     testImplementation(Deps.hamkrest)
     testImplementation(Deps.Ktor.testHost)
+    testImplementation(kotlin("reflect"))
     "kaptTest"(Deps.Moshi.codeGen)
 }
 
