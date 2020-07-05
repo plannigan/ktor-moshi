@@ -16,15 +16,10 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     implementation(project(":library"))
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib"))
     implementation(Deps.Ktor.netty)
     implementation(Deps.logback)
     implementation(Deps.Moshi.adapters)
     implementation(Deps.Moshi.moshi)
-    implementation(Deps.Moshi.reflection)
     "kapt"(Deps.Moshi.codeGen)
-
-    testImplementation(Deps.Junit.api)
-    testRuntimeOnly(Deps.Junit.engine)
-    testImplementation(Deps.hamkrest)
 }
