@@ -8,7 +8,8 @@ coverage:
   range: "75...100"
 
   status:
-    project: yes
+    project:
+      target: 90
     patch: yes
     changes: yes
 
