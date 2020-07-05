@@ -1,6 +1,8 @@
 package com.hypercubetools.ktor.moshi
 
-import com.google.common.truth.Truth.assertThat
+import com.natpryce.hamkrest.assertion.assertThat
+import com.natpryce.hamkrest.equalTo
+import com.natpryce.hamkrest.present
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.ktor.application.call
@@ -41,10 +43,9 @@ class MoshiConverterTest {
     handleRequest(HttpMethod.Get, "/") {
       addHeader("Accept", "application/json")
     }.response.let { response ->
-      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-      assertThat(response.content).isNotNull()
-      assertThat(response.content).isEqualTo("""{"id":42,"name":"Foosius"}""")
-      assertThat(response.contentType()).isEqualTo(ContentType.Application.Json.withCharset(Charsets.UTF_8))
+      assertThat(response.status(), equalTo(HttpStatusCode.OK))
+      assertThat(response.content, present(equalTo("""{"id":42,"name":"Foosius"}""")))
+      assertThat(response.contentType(), equalTo(ContentType.Application.Json.withCharset(Charsets.UTF_8)))
     }
 
     handleRequest(HttpMethod.Post, "/") {
@@ -52,10 +53,9 @@ class MoshiConverterTest {
       addHeader("Content-Type", "application/json")
       setBody("""{"id":43,"name":"Finnius"}""")
     }.response.let { response ->
-      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-      assertThat(response.content).isNotNull()
-      assertThat(response.content).isEqualTo("Foo(id=43, name=Finnius)")
-      assertThat(response.contentType()).isEqualTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8))
+      assertThat(response.status(), equalTo(HttpStatusCode.OK))
+      assertThat(response.content, present(equalTo("Foo(id=43, name=Finnius)")))
+      assertThat(response.contentType(), equalTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8)))
     }
   }
 
@@ -78,10 +78,9 @@ class MoshiConverterTest {
     handleRequest(HttpMethod.Get, "/") {
       addHeader("Accept", "application/json")
     }.response.let { response ->
-      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-      assertThat(response.content).isNotNull()
-      assertThat(response.content).isEqualTo("""{"id":"bar-123","count":50}""")
-      assertThat(response.contentType()).isEqualTo(ContentType.Application.Json.withCharset(Charsets.UTF_8))
+      assertThat(response.status(), equalTo(HttpStatusCode.OK))
+      assertThat(response.content, present(equalTo("""{"id":"bar-123","count":50}""")))
+      assertThat(response.contentType(), equalTo(ContentType.Application.Json.withCharset(Charsets.UTF_8)))
     }
 
     handleRequest(HttpMethod.Post, "/") {
@@ -89,10 +88,9 @@ class MoshiConverterTest {
       addHeader("Content-Type", "application/json")
       setBody("""{"id":"bar-543","count":-1}""")
     }.response.let { response ->
-      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-      assertThat(response.content).isNotNull()
-      assertThat(response.content).isEqualTo("Bar(id=bar-543, count=-1)")
-      assertThat(response.contentType()).isEqualTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8))
+      assertThat(response.status(), equalTo(HttpStatusCode.OK))
+      assertThat(response.content, present(equalTo("Bar(id=bar-543, count=-1)")))
+      assertThat(response.contentType(), equalTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8)))
     }
   }
 
@@ -116,10 +114,9 @@ class MoshiConverterTest {
     handleRequest(HttpMethod.Get, "/") {
       addHeader("Accept", "application/json")
     }.response.let { response ->
-      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-      assertThat(response.content).isNotNull()
-      assertThat(response.content).isEqualTo("""{"id":"bar-123","count":50}""")
-      assertThat(response.contentType()).isEqualTo(ContentType.Application.Json.withCharset(Charsets.UTF_8))
+      assertThat(response.status(), equalTo(HttpStatusCode.OK))
+      assertThat(response.content, present(equalTo("""{"id":"bar-123","count":50}""")))
+      assertThat(response.contentType(), equalTo(ContentType.Application.Json.withCharset(Charsets.UTF_8)))
     }
 
     handleRequest(HttpMethod.Post, "/") {
@@ -127,10 +124,9 @@ class MoshiConverterTest {
       addHeader("Content-Type", "application/json")
       setBody("""{"id":"bar-543","count":-1}""")
     }.response.let { response ->
-      assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-      assertThat(response.content).isNotNull()
-      assertThat(response.content).isEqualTo("Bar(id=bar-543, count=-1)")
-      assertThat(response.contentType()).isEqualTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8))
+      assertThat(response.status(), equalTo(HttpStatusCode.OK))
+      assertThat(response.content, present(equalTo("Bar(id=bar-543, count=-1)")))
+      assertThat(response.contentType(), equalTo(ContentType.Text.Plain.withCharset(Charsets.UTF_8)))
     }
   }
 }

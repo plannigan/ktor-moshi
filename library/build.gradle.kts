@@ -18,7 +18,7 @@ dependencies {
 
     testImplementation(Deps.Junit.api)
     testRuntimeOnly(Deps.Junit.engine)
-    testImplementation(Deps.truth)
+    testImplementation(Deps.hamkrest)
     testImplementation(Deps.Ktor.testHost)
     "kaptTest"(Deps.Moshi.codeGen)
 }
