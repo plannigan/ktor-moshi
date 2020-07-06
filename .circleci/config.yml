@@ -31,14 +31,17 @@ workflows:
   version: 2
   main:
     jobs:
-      - check:
+      - check_library:
+          <<: *not_github_pages
+      - check_client:
           <<: *not_github_pages
       - build:
           <<: *not_github_pages
       - deploy:
           requires:
             - build
-            - check
+            - check_library
+            - check_client
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+([-\w]+)?$/
@@ -47,12 +50,38 @@ workflows:
 
 
 commands:
+  check:
+    description: "perform check for a specific sub-project"
+    parameters:
+      project:
+        description: "Name of the gradle sub-project"
+        type: string
+    steps:
+      - checkout
+
+      - with_gradle_cache:
+          project: << parameters.project >>
+          task:
+            - run: ./gradlew << parameters.project >>:check
+
+      # publish results
+      - store_test_results:
+          path: << parameters.project >>/build/test-results/test
+      - store_artifacts:
+          path: << parameters.project >>/build/test-results/test
+          when: always
+      - codecov/upload:
+          file: << parameters.project >>/build/reports/jacoco/test/jacocoTestReport.xml
+
   with_gradle_cache:
     description: "restore dependency cache from previous runs & populate cache for future runs"
     parameters:
       task:
         description: "Steps to be wrapped by gradle caching"
         type: steps
+      project:
+        description: "Name of the gradle sub-project"
+        type: string
     steps:
       - run:
           name: Create cache key for build scripts and dependencies
@@ -63,33 +92,27 @@ commands:
             find . -name "*.gradle.kts" -type f >> /tmp/to_hash.txt
             cat /tmp/to_hash.txt | sort | xargs sha256sum > /tmp/gradle_cache_key.sha256
       - restore_cache:
-          key: v1-gradle-{{ checksum "/tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
+          key: v1-gradle-<< parameters.project >>-{{ checksum "/tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
       - steps: << parameters.task >>
       - save_cache:
           paths:
             - ~/.gradle/caches/
             - ~/.gradle/wrapper/
-          key: v1-gradle-{{ checksum "/tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
+          key: v1-gradle-<< parameters.project >>-{{ checksum "/tmp/gradle_cache_key.sha256" }}-{{ checksum ".circleci/config.yml" }}
 
 
 jobs:
-  check:
+  check_library:
     <<: *job_defaults
     steps:
-      - checkout
+      - check:
+          project: library
 
-      - with_gradle_cache:
-          task:
-            - run: ./gradlew check
-
-      # publish results
-      - store_test_results:
-          path: library/build/test-results/test
-      - store_artifacts:
-          path: library/build/test-results/test
-          when: always
-      - codecov/upload:
-          file: library/build/reports/jacoco/test/jacocoTestReport.xml
+  check_client:
+    <<: *job_defaults
+    steps:
+      - check:
+          project: client
 
   build:
     <<: *job_defaults
@@ -97,6 +120,7 @@ jobs:
       - checkout
 
       - with_gradle_cache:
+          project: library
           task:
             - run: ./gradlew assemble
 
@@ -109,5 +133,6 @@ jobs:
       - checkout
 
       - with_gradle_cache:
+          project: library
           task:
             - run: ./gradlew bintrayUpload

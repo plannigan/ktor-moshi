@@ -26,8 +26,13 @@ object Deps {
     }
     object Ktor {
         const val server = "${Groups.ktor}:ktor-server-core:${Versions.ktor}"
+        const val clientCore = "${Groups.ktor}:ktor-client-core:${Versions.ktor}"
+        const val clientJson = "${Groups.ktor}:ktor-client-json:${Versions.ktor}"
+        const val clientJsonJvm = "${Groups.ktor}:ktor-client-json-jvm:${Versions.ktor}"
         const val netty = "${Groups.ktor}:ktor-server-netty:${Versions.ktor}"
         const val testHost = "${Groups.ktor}:ktor-server-test-host:${Versions.ktor}"
+        const val clientMock = "${Groups.ktor}:ktor-client-mock:${Versions.ktor}"
+        const val clientMockJvm = "${Groups.ktor}:ktor-client-mock-jvm:${Versions.ktor}"
     }
     const val okio = "${Groups.okio}:okio:${Versions.okio}"
     const val logback = "${Groups.logback}:logback-classic:${Versions.logback}"
