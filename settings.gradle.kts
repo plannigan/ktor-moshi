@@ -1,4 +1,4 @@
-include("library", "sample")
+include("library", "client", "sample")
 
 pluginManagement {
     plugins {
