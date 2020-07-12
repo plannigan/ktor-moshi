@@ -35,11 +35,14 @@ workflows:
           <<: *not_github_pages
       - check_client:
           <<: *not_github_pages
-      - build:
+      - build_library:
+          <<: *not_github_pages
+      - build_client:
           <<: *not_github_pages
       - deploy:
           requires:
-            - build
+            - build_library
+            - build_client
             - check_library
             - check_client
           filters:
@@ -72,6 +75,23 @@ commands:
           when: always
       - codecov/upload:
           file: << parameters.project >>/build/reports/jacoco/test/jacocoTestReport.xml
+
+  build:
+    description: "build a jar for a specific sub-project"
+    parameters:
+      project:
+        description: "Name of the gradle sub-project"
+        type: string
+    steps:
+      - checkout
+
+      - with_gradle_cache:
+          project: << parameters.project >>
+          task:
+            - run: ./gradlew assemble
+
+      - store_artifacts:
+          path: << parameters.project >>/build/libs
 
   with_gradle_cache:
     description: "restore dependency cache from previous runs & populate cache for future runs"
@@ -114,18 +134,17 @@ jobs:
       - check:
           project: client
 
-  build:
+  build_client:
     <<: *job_defaults
     steps:
-      - checkout
+      - build:
+          project: client
 
-      - with_gradle_cache:
+  build_library:
+    <<: *job_defaults
+    steps:
+      - build:
           project: library
-          task:
-            - run: ./gradlew assemble
-
-      - store_artifacts:
-          path: library/build/libs
 
   deploy:
     <<: *job_defaults
