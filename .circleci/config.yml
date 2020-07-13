@@ -73,6 +73,9 @@ commands:
       - store_artifacts:
           path: << parameters.project >>/build/test-results/test
           when: always
+      - store_artifacts:
+          path: << parameters.project >>/build/reports/jacoco/test/jacocoTestReport.xml
+          when: always
       - codecov/upload:
           file: << parameters.project >>/build/reports/jacoco/test/jacocoTestReport.xml
 
