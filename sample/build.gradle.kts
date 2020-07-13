@@ -15,7 +15,7 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
-    implementation(project(":library"))
+    implementation(project(":server"))
     implementation(kotlin("stdlib"))
     implementation(Deps.Ktor.netty)
     implementation(Deps.logback)
