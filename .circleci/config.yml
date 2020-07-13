@@ -31,19 +31,19 @@ workflows:
   version: 2
   main:
     jobs:
-      - check_library:
+      - check_server:
           <<: *not_github_pages
       - check_client:
           <<: *not_github_pages
-      - build_library:
+      - build_server:
           <<: *not_github_pages
       - build_client:
           <<: *not_github_pages
       - deploy:
           requires:
-            - build_library
+            - build_server
             - build_client
-            - check_library
+            - check_server
             - check_client
           filters:
             tags:
@@ -125,11 +125,11 @@ commands:
 
 
 jobs:
-  check_library:
+  check_server:
     <<: *job_defaults
     steps:
       - check:
-          project: library
+          project: server
 
   check_client:
     <<: *job_defaults
@@ -143,11 +143,11 @@ jobs:
       - build:
           project: client
 
-  build_library:
+  build_server:
     <<: *job_defaults
     steps:
       - build:
-          project: library
+          project: server
 
   deploy:
     <<: *job_defaults
@@ -155,6 +155,6 @@ jobs:
       - checkout
 
       - with_gradle_cache:
-          project: library
+          project: server
           task:
             - run: ./gradlew bintrayUpload
