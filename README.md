@@ -3,15 +3,19 @@
 [![Download](https://api.bintray.com/packages/plannigan/com.hypercubetools/ktor-moshi-server/images/download.svg)](https://bintray.com/plannigan/com.hypercubetools/ktor-moshi-server/_latestVersion)
 [![codecov](https://codecov.io/gh/plannigan/ktor-moshi/branch/main/graph/badge.svg)](https://codecov.io/gh/plannigan/ktor-moshi)
 
-# Ktor: Moshi
+# Ktor-Moshi
 
-The Moshi feature allows you to handle JSON content in your application easily using the [Moshi](https://github.com/square/moshi/) library.
+[Ktor][ktor] is a framework for building asynchronous servers and clients in connected systems. Ktor allows the
+application to decide how data should be serialized/deserialized when sent over the network.
 
-This feature provides a [ContentNegotiation](http://ktor.io/servers/features/content-negotiation.html) converter.
+Ktor-Moshi allows an application to use [Moshi][moshi] when dealing with JSON content.
 
 ## Usage
 
-Install the feature by registering a JSON content converter using Moshi:
+### Server
+
+When implementing a server, the [ContentNegotiation][content_negotiation] feature will convert the content. Bellow is
+an example of installing Moshi for content negotiation:
 
 ```kotlin
 install(ContentNegotiation) {
@@ -22,41 +26,66 @@ install(ContentNegotiation) {
 }
 ```
 
-Inside the `moshi` block you have access to the [Moshi.Builder](http://square.github.io/moshi/1.x/moshi/com/squareup/moshi/Moshi.Builder.html), which you can configure as needed for your application. 
+A [Moshi.Builder][moshi_builder] is available inside the `moshi` block if it needs to be customized. In this example,
+Moshi's pre-build [RFC-3339 Date adapter][date_adapter] is added.
 
-If you already have an instance of Moshi you can simply provide that and it will be used, instead of creating a new one.
+Alternatively, if the application already has a `Moshi` instance, it can be provided instead of creating a new one.
 
 ```kotlin
 install(ContentNegotiation) {
-  moshi(myInjectedMoshi)
+  moshi(myExistingMoshiInstance)
 }
 ```
 
-Once the Moshi converter is installed you use it like you would any other ContentNegotiation converter, by using `call.respond(myObject)` and `call.receive<MyType>()`. 
+Refer to the [ContentNegotiation][content_negotiation] documentation for information on how to send and receive
+formatted data.
+
+### Client
+
+When implementing a client, the [Json feature][json_feature] will convert the content. Bellow is
+an example of installing Moshi for serializing JSON content:
 
 ```kotlin
-routing {
-  get("/") {
-    // Simply pass an object to `call.respond` and it will be
-    // converted to JSON if the client accepts `application/json`
-    val myResponseObject = ...
-    call.respond(myResponseObject)
-  }
-  post("/") {
-    // Use `call.receive` to get the JSON request as a
-    // deserialized object.
-    val request = call.receive<MyRequestObject>()
-    ...
-  }
+val client = HttpClient(HttpClientEngine) {
+    install(JsonFeature) {
+        serializer = MoshiSerializer {
+          add(Rfc3339DateJsonAdapter())
+        }
+    }
 }
 ```
+
+A [Moshi.Builder][moshi_builder] is available inside the `MoshiSerializer` block if it needs to be customized. In this
+example, Moshi's pre-build [RFC-3339 Date adapter][date_adapter] is added.
+
+Alternatively, if the application already has a `Moshi` instance, it can be provided instead of creating a new one.
+
+```kotlin
+val client = HttpClient(HttpClientEngine) {
+    install(JsonFeature) {
+        serializer = MoshiSerializer(myExistingMoshiInstance)
+    }
+}
+```
+
+Refer to the [Client][client_calls] documentation for information on how to send and receive formatted data.
 
 ## Download
 
+Each component (server & client) are published as independent packages.
+
 Add a gradle dependency to your project:
 
+* Server:
+
 ```groovy
-implementation 'com.hypercubetools:ktor-moshi-server:2.0.0'
+implementation 'com.hypercubetools:ktor-moshi-server:LATEST_VERSION'
+```
+
+* Client:
+
+```groovy
+implementation 'com.hypercubetools:ktor-moshi-client:LATEST_VERSION'
 ```
 
 ## Fork
@@ -64,4 +93,11 @@ implementation 'com.hypercubetools:ktor-moshi-server:2.0.0'
 [Ryan Harter's `ktor-moshi`][old_repo] is the original source for this project. The project has been expanded since it's
 initial state.
 
+[ktor]: https://ktor.io/
+[moshi]: https://github.com/square/moshi/
+[content_negotiation]: http://ktor.io/servers/features/content-negotiation.html
+[moshi_builder]: http://square.github.io/moshi/1.x/moshi/com/squareup/moshi/Moshi.Builder.html
+[date_adapter]: https://github.com/square/moshi/tree/master/adapters#adapters
+[json_feature]: https://ktor.io/clients/http-client/features/json-feature.html
+[client_calls]: https://ktor.io/clients/index.html#calls-requests-and-responses
 [old_repo]: https://github.com/rharter/ktor-moshi
