@@ -27,6 +27,7 @@ object Deps {
     object Ktor {
         const val server = "${Groups.ktor}:ktor-server-core:${Versions.ktor}"
         const val clientCore = "${Groups.ktor}:ktor-client-core:${Versions.ktor}"
+        const val clientCIO = "${Groups.ktor}:ktor-client-cio:${Versions.ktor}"
         const val clientJson = "${Groups.ktor}:ktor-client-json:${Versions.ktor}"
         const val clientJsonJvm = "${Groups.ktor}:ktor-client-json-jvm:${Versions.ktor}"
         const val netty = "${Groups.ktor}:ktor-server-netty:${Versions.ktor}"
