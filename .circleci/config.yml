@@ -39,12 +39,15 @@ workflows:
           <<: *not_github_pages
       - build_client:
           <<: *not_github_pages
+      - integration_test:
+          <<: *not_github_pages
       - deploy:
           requires:
             - build_server
             - build_client
             - check_server
             - check_client
+            - integration_test
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+([-\w]+)?$/
@@ -148,6 +151,15 @@ jobs:
     steps:
       - build:
           project: server
+
+  integration_test:
+    <<: *job_defaults
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker-compose run sample-client-check
 
   deploy:
     <<: *job_defaults

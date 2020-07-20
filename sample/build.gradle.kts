@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     kotlin("kapt")
     application
+    id("com.github.johnrengelman.shadow")
 }
 
 application {
@@ -23,6 +24,7 @@ dependencies {
     implementation(Deps.Ktor.clientCIO)
     implementation(Deps.Ktor.clientJson)
     implementation(Deps.Ktor.clientJsonJvm)
+    implementation(Deps.clikt)
     implementation(Deps.logback)
     implementation(Deps.Moshi.adapters)
     implementation(Deps.Moshi.moshi)
