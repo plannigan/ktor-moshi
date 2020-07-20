@@ -157,8 +157,8 @@ jobs:
     docker:
       - image: cimg/base:2020.01
     steps:
+      - checkout
       - setup_remote_docker
-      - run: ls -al
       - run: docker-compose run sample-client-check
 
   deploy:
