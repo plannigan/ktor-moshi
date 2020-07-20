@@ -7,6 +7,7 @@ object Versions {
     const val hamkrest = "1.7.0.3"
     const val junit = "5.6.2"
     const val logback = "1.2.3"
+    const val clikt = "2.8.0"
 }
 object Groups {
     const val moshi = "com.squareup.moshi"
@@ -15,6 +16,7 @@ object Groups {
     const val logback = "ch.qos.logback"
     const val hamkrest = "com.natpryce"
     const val junit = "org.junit.jupiter"
+    const val clikt = "com.github.ajalt"
 }
 
 object Deps {
@@ -42,4 +44,5 @@ object Deps {
         const val api = "${Groups.junit}:junit-jupiter-api:${Versions.junit}"
         const val engine = "${Groups.junit}:junit-jupiter-engine:${Versions.junit}"
     }
+    const val clikt = "${Groups.clikt}:clikt:${Versions.clikt}"
 }

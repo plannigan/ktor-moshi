@@ -1,0 +1,27 @@
+version: "3.8"
+
+x-app: &defaults
+    image: "sample"
+    build:
+      dockerfile: "docker/integration.dockerfile"
+      context: "."
+    networks:
+      - ktor
+
+services:
+  sample-server:
+    <<: *defaults
+    command: ["server"]
+
+  sample-client: &client
+    <<: *defaults
+    command: ["client", "--host", "sample-server"]
+    depends_on:
+      - sample-server
+
+  sample-client-check:
+    <<: *client
+    command: ["client", "--host", "sample-server", "--check"]
+
+networks:
+  ktor:

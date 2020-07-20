@@ -19,8 +19,8 @@ fun ratingResponse(color: String?): RatingResponse {
     return RatingResponse(average, filtered)
 }
 
-fun runServer() : Int {
-    val server = embeddedServer(Netty, PORT) {
+fun runServer(port : Int) : Int {
+    val server = embeddedServer(Netty, port) {
         install(CallLogging)
 
         install(ContentNegotiation) {

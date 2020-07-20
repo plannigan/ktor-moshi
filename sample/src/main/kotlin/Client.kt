@@ -10,14 +10,14 @@ import kotlinx.coroutines.runBlocking
 const val FILTER_COLOR = "red"
 val ADDED_RATING = Rating(FILTER_COLOR, 1.3)
 
-internal fun runClient(check: Boolean): Int {
+internal fun runClient(check: Boolean, serverHost: String, serverPort: Int): Int {
     val client = HttpClient(CIO) {
         install(JsonFeature) {
             serializer = MoshiSerializer()
         }
         defaultRequest {
-            host = HOST
-            port = PORT
+            host = serverHost
+            port = serverPort
         }
     }
 
@@ -59,3 +59,5 @@ fun checkResult(toCheck: RatingResponse, expected: List<Rating>): Int? {
     }
     return null
 }
+
+data class ClientSettings(val check: Boolean, val host: String)

@@ -1,29 +1,34 @@
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.flag
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.types.int
 import kotlin.system.exitProcess
 
 
-// server: start server
-// client: use client to interact with server
-// client check: use client to interact with server and assert responses
-fun main(args: Array<String>) {
-    exitProcess(run(args))
-}
+fun main(args: Array<String>) = SampleCli().subcommands(ClientCli(), ServerCli()).main(args)
 
-fun run(args: Array<String>) : Int {
-  if (args.isEmpty()) {
-    println("Command not specified")
-    return ExitCodes.BAD_ARG
-  }
-  return when(args[0]) {
-    "server" -> runServer()
-    "client" -> runClient(args.clientCheckArg())
-    else -> {
-      println("""Command must be "server" or "client""")
-      return ExitCodes.BAD_ARG
-    }
+class SampleCli : CliktCommand() {
+  override fun run() {
   }
 }
 
-fun Array<String>.clientCheckArg() = when(size) {
-  1 -> false
-  else -> this[1] == "check"
+class ClientCli : CliktCommand(name="client", help = "Use the client to connect to the server") {
+  private val host : String by option(help = "Host to connect to", metavar = "HOSTNAME").default("localhost")
+  private val port : Int by option(help = "Port to connect to", metavar = "PORT").int().default(PORT)
+  private val check : Boolean by option(help="Should the responses be validated").flag("--no-check")
+
+  override fun run() {
+    exitProcess(runClient(check, host, port))
+  }
 }
+
+class ServerCli : CliktCommand(name="server", help = "Start the server") {
+  private val port : Int by option(help = "Port to connect to", metavar = "PORT").int().default(PORT)
+
+  override fun run() {
+    exitProcess(runServer(port))
+  }
+}
+
