@@ -1,6 +1,6 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.3.72-blue.svg)](http://kotlinlang.org)
 [![CircleCI](https://circleci.com/gh/plannigan/ktor-moshi.svg?style=svg)](https://circleci.com/gh/plannigan/ktor-moshi)
-[![Download](https://api.bintray.com/packages/plannigan/com.hypercubetools/ktor-moshi-server/images/download.svg)](https://bintray.com/plannigan/com.hypercubetools/ktor-moshi-server/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hypercubetools/ktor-moshi-server.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.hypercubetools%22%20AND%20a:%22ktor-moshi-server%22)
 [![codecov](https://codecov.io/gh/plannigan/ktor-moshi/branch/main/graph/badge.svg)](https://codecov.io/gh/plannigan/ktor-moshi)
 
 # Ktor-Moshi
