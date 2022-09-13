@@ -6,20 +6,22 @@ plugins {
     id("com.jfrog.bintray")
     jacoco
     `maven-publish`
-    id("org.jetbrains.dokka") version "0.10.1"
+    id("org.jetbrains.dokka") version "1.7.10"
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation(Deps.Ktor.server)
-    implementation(Deps.Moshi.moshi)
-    implementation(Deps.okio)
+    api(Deps.Ktor.serialization)
+    api(Deps.Moshi.moshi)
 
     testImplementation(Deps.Junit.api)
     testRuntimeOnly(Deps.Junit.engine)
     testImplementation(Deps.hamkrest)
     testImplementation(Deps.Ktor.testHost)
     testImplementation(Deps.Moshi.reflection)
+    testImplementation(Deps.Ktor.server)
+    testImplementation(Deps.Ktor.serverContentNegotiation)
+    testImplementation(Deps.Ktor.clientMock)
+    testImplementation(Deps.Ktor.clientContentNegotiation)
     testImplementation(kotlin("reflect"))
     "kaptTest"(Deps.Moshi.codeGen)
 }
@@ -27,17 +29,16 @@ dependencies {
 testWithJunit()
 coverWithJacoco()
 
-val dokka by tasks.getting(DokkaTask::class) {
-    outputFormat = "html"
-    outputDirectory = "$buildDir/dokka"
+val dokkaJavadoc by tasks.getting(DokkaTask::class) {
+    outputDirectory.set(buildDir.resolve("dokka"))
 }
 
 val packageJavadoc by tasks.registering(Jar::class) {
-    dependsOn("dokka")
+    dependsOn("dokkaJavadoc")
     archiveClassifier.set("javadoc")
-    from(dokka.outputDirectory)
+    from(dokkaJavadoc.outputDirectory)
 }
 
 val POM_ARTIFACT_ID: String by project
 
-publishAs(POM_ARTIFACT_ID, "server", tasks.kotlinSourcesJar, packageJavadoc)
+publishAs(POM_ARTIFACT_ID, "core", tasks.kotlinSourcesJar, packageJavadoc)

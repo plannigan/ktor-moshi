@@ -8,7 +8,7 @@ plugins {
 }
 
 application {
-    mainClassName = "MainKt"
+    mainClass.set("MainKt")
 }
 
 tasks.withType<KotlinCompile> {
@@ -16,14 +16,13 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
-    implementation(project(":server"))
-    implementation(project(":client"))
-    implementation(kotlin("stdlib"))
+    implementation(project(":core"))
     implementation(Deps.Ktor.netty)
+    implementation(Deps.Ktor.serverCallLogging)
+    implementation(Deps.Ktor.serverContentNegotiation)
     implementation(Deps.Ktor.clientCore)
     implementation(Deps.Ktor.clientCIO)
-    implementation(Deps.Ktor.clientJson)
-    implementation(Deps.Ktor.clientJsonJvm)
+    implementation(Deps.Ktor.clientContentNegotiation)
     implementation(Deps.clikt)
     implementation(Deps.logback)
     implementation(Deps.Moshi.adapters)

@@ -31,22 +31,16 @@ workflows:
   version: 2
   main:
     jobs:
-      - check_server:
+      - check_core:
           <<: *not_github_pages
-      - check_client:
-          <<: *not_github_pages
-      - build_server:
-          <<: *not_github_pages
-      - build_client:
+      - build_core:
           <<: *not_github_pages
       - integration_test:
           <<: *not_github_pages
       - deploy:
           requires:
-            - build_server
-            - build_client
-            - check_server
-            - check_client
+            - build_core
+            - check_core
             - integration_test
           filters:
             tags:
@@ -128,29 +122,17 @@ commands:
 
 
 jobs:
-  check_server:
+  check_core:
     <<: *job_defaults
     steps:
       - check:
-          project: server
+          project: core
 
-  check_client:
-    <<: *job_defaults
-    steps:
-      - check:
-          project: client
-
-  build_client:
+  build_core:
     <<: *job_defaults
     steps:
       - build:
-          project: client
-
-  build_server:
-    <<: *job_defaults
-    steps:
-      - build:
-          project: server
+          project: core
 
   integration_test:
     <<: *job_defaults
@@ -167,6 +149,6 @@ jobs:
       - checkout
 
       - with_gradle_cache:
-          project: server
+          project: core
           task:
             - run: ./gradlew bintrayUpload

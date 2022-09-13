@@ -1,8 +1,9 @@
-import com.hypercubetools.ktor.moshi.MoshiSerializer
+import com.hypercubetools.ktor.moshi.moshi
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.features.defaultRequest
-import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.*
 import io.ktor.http.ContentType
 import kotlinx.coroutines.runBlocking
@@ -12,8 +13,8 @@ val ADDED_RATING = Rating(FILTER_COLOR, 1.3)
 
 internal fun runClient(check: Boolean, serverHost: String, serverPort: Int): Int {
     val client = HttpClient(CIO) {
-        install(JsonFeature) {
-            serializer = MoshiSerializer()
+        install(ContentNegotiation) {
+            moshi()
         }
         defaultRequest {
             host = serverHost
@@ -23,7 +24,7 @@ internal fun runClient(check: Boolean, serverHost: String, serverPort: Int): Int
 
     println("Initial ratings")
     var result = runBlocking {
-        client.get<RatingResponse>(path = ROUTE)
+        client.get(ROUTE).body<RatingResponse>()
     }
     if (check) {
         checkResult(result, INITIAL_RATINGS)?.let { return it }
@@ -32,9 +33,10 @@ internal fun runClient(check: Boolean, serverHost: String, serverPort: Int): Int
 
     println("Add rating")
     result = runBlocking {
-        client.post<RatingResponse>(path = ROUTE, body = ADDED_RATING) {
+        client.post(ROUTE) {
             header("Content-Type", ContentType.Application.Json.toString())
-        }
+            setBody(ADDED_RATING)
+        }.body()
     }
     if (check) {
         val expectedAddResponseRatings = INITIAL_RATINGS
@@ -59,5 +61,3 @@ fun checkResult(toCheck: RatingResponse, expected: List<Rating>): Int? {
     }
     return null
 }
-
-data class ClientSettings(val check: Boolean, val host: String)
