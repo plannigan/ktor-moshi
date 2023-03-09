@@ -1,6 +1,6 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.3.72-blue.svg)](http://kotlinlang.org)
 [![CircleCI](https://circleci.com/gh/plannigan/ktor-moshi.svg?style=svg)](https://circleci.com/gh/plannigan/ktor-moshi)
-[![Download](https://api.bintray.com/packages/plannigan/com.hypercubetools/ktor-moshi-server/images/download.svg)](https://bintray.com/plannigan/com.hypercubetools/ktor-moshi-server/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.hypercubetools/ktor-moshi-server)][maven]
 [![codecov](https://codecov.io/gh/plannigan/ktor-moshi/branch/main/graph/badge.svg)](https://codecov.io/gh/plannigan/ktor-moshi)
 
 # Ktor-Moshi
@@ -93,6 +93,7 @@ implementation 'com.hypercubetools:ktor-moshi-client:LATEST_VERSION'
 [Ryan Harter's `ktor-moshi`][old_repo] is the original source for this project. The project has been expanded since it's
 initial state.
 
+[maven]: https://mvnrepository.com/artifact/com.hypercubetools/ktor-moshi-server
 [ktor]: https://ktor.io/
 [moshi]: https://github.com/square/moshi/
 [content_negotiation]: http://ktor.io/servers/features/content-negotiation.html
