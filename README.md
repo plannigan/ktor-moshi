@@ -14,15 +14,15 @@ Ktor-Moshi allows an application to use [Moshi][moshi] when dealing with JSON co
 
 ### Server
 
-When implementing a server, the [ContentNegotiation][content_negotiation] feature will convert the content. Bellow is
-an example of installing Moshi for content negotiation:
+When implementing a server, the [ContentNegotiation][server_content_negotiation] plugin will convert the content. Below
+is an example of installing Moshi for content negotiation:
 
 ```kotlin
 install(ContentNegotiation) {
-  moshi {
-    // Configure the Moshi.Builder here.
-    add(Date::class.java, Rfc3339DateJsonAdapter())
-  }
+    moshi {
+        // Configure the Moshi.Builder here.
+        add(Date::class.java, Rfc3339DateJsonAdapter())
+    }
 }
 ```
 
@@ -33,23 +33,23 @@ Alternatively, if the application already has a `Moshi` instance, it can be prov
 
 ```kotlin
 install(ContentNegotiation) {
-  moshi(myExistingMoshiInstance)
+    moshi(myExistingMoshiInstance)
 }
 ```
 
-Refer to the [ContentNegotiation][content_negotiation] documentation for information on how to send and receive
+Refer to the [ContentNegotiation][server_content_negotiation] documentation for information on how to send and receive
 formatted data.
 
 ### Client
 
-When implementing a client, the [Json feature][json_feature] will convert the content. Bellow is
-an example of installing Moshi for serializing JSON content:
+When implementing a client, the [ContentNegotiation][client_content_negotiation] plugin will convert the content. Below
+is an example of installing Moshi for serializing JSON content:
 
 ```kotlin
 val client = HttpClient(HttpClientEngine) {
-    install(JsonFeature) {
-        serializer = MoshiSerializer {
-          add(Rfc3339DateJsonAdapter())
+    install(ContentNegotiation) {
+        moshi {
+            add(Rfc3339DateJsonAdapter())
         }
     }
 }
@@ -62,30 +62,29 @@ Alternatively, if the application already has a `Moshi` instance, it can be prov
 
 ```kotlin
 val client = HttpClient(HttpClientEngine) {
-    install(JsonFeature) {
-        serializer = MoshiSerializer(myExistingMoshiInstance)
+    install(ContentNegotiation) {
+        moshi(myExistingMoshiInstance)
     }
 }
 ```
 
-Refer to the [Client][client_calls] documentation for information on how to send and receive formatted data.
+Refer to the [ContentNegotiation][client_content_negotiation] documentation for information on how to send and receive
+formatted data.
 
 ## Download
 
-Each component (server & client) are published as independent packages.
+Add a Gradle dependency to your project:
 
-Add a gradle dependency to your project:
+Using the Kotlin DSL:
 
-* Server:
-
-```groovy
-implementation 'com.hypercubetools:ktor-moshi-server:LATEST_VERSION'
+```kotlin
+implementation("com.hypercubetools:ktor-moshi:LATEST_VERSION")
 ```
 
-* Client:
+Using the Groovy DSL:
 
 ```groovy
-implementation 'com.hypercubetools:ktor-moshi-client:LATEST_VERSION'
+implementation 'com.hypercubetools:ktor-moshi:LATEST_VERSION'
 ```
 
 ## Fork
@@ -96,9 +95,8 @@ initial state.
 [maven]: https://mvnrepository.com/artifact/com.hypercubetools/ktor-moshi-server
 [ktor]: https://ktor.io/
 [moshi]: https://github.com/square/moshi/
-[content_negotiation]: http://ktor.io/servers/features/content-negotiation.html
-[moshi_builder]: http://square.github.io/moshi/1.x/moshi/com/squareup/moshi/Moshi.Builder.html
+[server_content_negotiation]: https://ktor.io/docs/serialization.html
+[client_content_negotiation]: https://ktor.io/docs/serialization-client.html
+[moshi_builder]: https://square.github.io/moshi/1.x/moshi/com/squareup/moshi/Moshi.Builder.html
 [date_adapter]: https://github.com/square/moshi/tree/master/adapters#adapters
-[json_feature]: https://ktor.io/clients/http-client/features/json-feature.html
-[client_calls]: https://ktor.io/clients/index.html#calls-requests-and-responses
 [old_repo]: https://github.com/rharter/ktor-moshi
