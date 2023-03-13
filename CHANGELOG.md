@@ -8,8 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* Update to Kotlin 1.7.
-* Migrate to Ktor 2.
+* Update project dependencies:
+    * Kotlin to `1.7.22`
+    * ktor to `2.2.4`
+    * moshi to `1.14.0`
 * Combine client and server libraries into a single `ktor-moshi` library with no client or server dependencies.
 
 ## [2.1.0] - 2020-07-18
