@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * moshi to `1.14.0`
 * Combine client and server libraries into a single `ktor-moshi` library with no client or server dependencies.
 
+### Internal
+
+- Update development dependencies
+
 ## [2.1.0] - 2020-07-18
 
 ### Added
