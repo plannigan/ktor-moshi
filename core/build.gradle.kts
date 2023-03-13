@@ -1,29 +1,29 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    kotlin("jvm")
-    kotlin("kapt")
-    id("com.jfrog.bintray")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.kapt)
+    id("com.jfrog.bintray")  // plugin is already on class path, so can't use version specification
     jacoco
     `maven-publish`
-    id("org.jetbrains.dokka") version "1.7.10"
+    alias(libs.plugins.dokka)
 }
 
 dependencies {
-    api(Deps.Ktor.serialization)
-    api(Deps.Moshi.moshi)
+    api(libs.ktor.serialization)
+    api(libs.moshi)
 
-    testImplementation(Deps.Junit.api)
-    testRuntimeOnly(Deps.Junit.engine)
-    testImplementation(Deps.hamkrest)
-    testImplementation(Deps.Ktor.testHost)
-    testImplementation(Deps.Moshi.reflection)
-    testImplementation(Deps.Ktor.server)
-    testImplementation(Deps.Ktor.serverContentNegotiation)
-    testImplementation(Deps.Ktor.clientMock)
-    testImplementation(Deps.Ktor.clientContentNegotiation)
-    testImplementation(kotlin("reflect"))
-    "kaptTest"(Deps.Moshi.codeGen)
+    testImplementation(libs.junit.api)
+    testRuntimeOnly(libs.junit.engine)
+    testImplementation(libs.hamkrest)
+    testImplementation(libs.ktor.server.testHost)
+    testImplementation(libs.moshi.reflection)
+    testImplementation(libs.ktor.server.core)
+    testImplementation(libs.ktor.server.contentNegotiation)
+    testImplementation(libs.ktor.client.mock)
+    testImplementation(libs.ktor.client.contentNegotiation)
+    testImplementation(libs.kotlin.reflect)
+    "kaptTest"(libs.moshi.codeGen)
 }
 
 testWithJunit()

@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("kapt")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.kapt)
     application
-    id("com.github.johnrengelman.shadow")
+    alias(libs.plugins.shadow)
 }
 
 application {
@@ -17,15 +17,15 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     implementation(project(":core"))
-    implementation(Deps.Ktor.netty)
-    implementation(Deps.Ktor.serverCallLogging)
-    implementation(Deps.Ktor.serverContentNegotiation)
-    implementation(Deps.Ktor.clientCore)
-    implementation(Deps.Ktor.clientCIO)
-    implementation(Deps.Ktor.clientContentNegotiation)
-    implementation(Deps.clikt)
-    implementation(Deps.logback)
-    implementation(Deps.Moshi.adapters)
-    implementation(Deps.Moshi.moshi)
-    "kapt"(Deps.Moshi.codeGen)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.callLogging)
+    implementation(libs.ktor.server.contentNegotiation)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentNegotiation)
+    implementation(libs.clikt)
+    implementation(libs.logback)
+    implementation(libs.moshi.adapters)
+    implementation(libs.moshi)
+    "kapt"(libs.moshi.codeGen)
 }

@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5")
+    implementation(libs.bintray)
 }
 
 repositories {
