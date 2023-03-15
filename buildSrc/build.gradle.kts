@@ -3,10 +3,6 @@ plugins {
     `maven-publish`
 }
 
-dependencies {
-    implementation(libs.bintray)
-}
-
 repositories {
-    jcenter()
+    mavenCentral()
 }
