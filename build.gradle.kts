@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.nexus)
 }
 
 allprojects {
@@ -8,7 +9,12 @@ allprojects {
     version = "2.1.0"
 
     repositories {
-        jcenter()
         mavenCentral()
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
     }
 }
