@@ -107,8 +107,7 @@ commands:
           name: Create cache key for build scripts and dependencies
           command: |
             mkdir -p /tmp
-            find ./buildSrc/ -name "Dependencies.kt" -type f > /tmp/to_hash.txt
-            find ./gradle/ -name "gradle-wrapper.properties" -type f >> /tmp/to_hash.txt
+            find ./gradle/ -name "gradle-wrapper.properties"  -o -name "libs.versions.toml" -type f >> /tmp/to_hash.txt
             find . -name "*.gradle.kts" -type f >> /tmp/to_hash.txt
             cat /tmp/to_hash.txt | sort | xargs sha256sum > /tmp/gradle_cache_key.sha256
       - restore_cache:
