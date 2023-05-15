@@ -11,6 +11,7 @@ shadow = "7.1.2"
 nexus = "1.3.0"
 targetJvm = "1.8"
 jacocolog = "3.1.0"
+use-python = "3.0.0"
 
 [libraries]
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
@@ -47,3 +48,4 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
 nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }
 jacocolog = { id = "org.barfuin.gradle.jacocolog", version.ref = "jacocolog" }
+use-python = { id = "ru.vyarus.use-python", version.ref = "use-python" }
