@@ -1,5 +1,5 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.7.22-blue.svg)](http://kotlinlang.org)
-[![CircleCI](https://circleci.com/gh/plannigan/ktor-moshi.svg?style=svg)](https://circleci.com/gh/plannigan/ktor-moshi)
+[![CI](https://github.com/plannigan/ktor-moshi/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/plannigan/ktor-moshi/actions/workflows/main.yaml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.hypercubetools/ktor-moshi-server)][maven]
 [![codecov](https://codecov.io/gh/plannigan/ktor-moshi/branch/main/graph/badge.svg)](https://codecov.io/gh/plannigan/ktor-moshi)
 
