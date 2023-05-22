@@ -1,6 +1,6 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.7.22-blue.svg)](http://kotlinlang.org)
 [![CI](https://github.com/plannigan/ktor-moshi/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/plannigan/ktor-moshi/actions/workflows/main.yaml)
-[![Maven Central](https://img.shields.io/maven-central/v/com.hypercubetools/ktor-moshi-server)][maven]
+[![Maven Central](https://img.shields.io/maven-central/v/com.hypercubetools/ktor-moshi)][maven]
 [![codecov](https://codecov.io/gh/plannigan/ktor-moshi/branch/main/graph/badge.svg)](https://codecov.io/gh/plannigan/ktor-moshi)
 
 # Ktor-Moshi
@@ -92,7 +92,7 @@ implementation 'com.hypercubetools:ktor-moshi:LATEST_VERSION'
 [Ryan Harter's `ktor-moshi`][old_repo] is the original source for this project. The project has been expanded since it's
 initial state.
 
-[maven]: https://mvnrepository.com/artifact/com.hypercubetools/ktor-moshi-server
+[maven]: https://central.sonatype.com/artifact/com.hypercubetools/ktor-moshi/
 [ktor]: https://ktor.io/
 [moshi]: https://github.com/square/moshi/
 [server_content_negotiation]: https://ktor.io/docs/serialization.html
