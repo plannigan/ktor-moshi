@@ -11,6 +11,7 @@ import io.ktor.serialization.Configuration
 import io.ktor.serialization.ContentConverter
 import io.ktor.serialization.JsonConvertException
 import io.ktor.util.reflect.TypeInfo
+import io.ktor.util.reflect.reifiedType
 import io.ktor.utils.io.ByteReadChannel
 import io.ktor.utils.io.charsets.Charset
 import io.ktor.utils.io.jvm.javaio.toInputStream
@@ -33,7 +34,7 @@ class MoshiConverter(private val moshi: Moshi = Moshi.Builder().build()) : Conte
         }
     }
 
-    override suspend fun serializeNullable(contentType: ContentType, charset: Charset, typeInfo: TypeInfo, value: Any?): OutgoingContent {
+    override suspend fun serialize(contentType: ContentType, charset: Charset, typeInfo: TypeInfo, value: Any?): OutgoingContent? {
         return TextContent(moshi.adapter<Any?>(typeInfo.reifiedType).toJson(value), contentType.withCharsetIfNeeded(charset))
     }
 }
