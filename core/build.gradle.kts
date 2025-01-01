@@ -1,5 +1,8 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -9,6 +12,14 @@ plugins {
     jacoco
     alias(libs.plugins.jacocolog)
     alias(libs.plugins.dokka)
+}
+
+tasks.withType<KotlinCompile> {
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
+}
+
+kotlin {
+    jvmToolchain(8)
 }
 
 dependencies {

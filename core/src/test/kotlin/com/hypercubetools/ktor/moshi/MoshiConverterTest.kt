@@ -12,6 +12,7 @@ import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandleScope
 import io.ktor.client.engine.mock.MockRequestHandler
 import io.ktor.client.engine.mock.respond
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiationConfig
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.HttpResponseData
 import io.ktor.client.request.accept
@@ -29,7 +30,6 @@ import io.ktor.http.withCharset
 import io.ktor.serialization.ContentConvertException
 import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -388,8 +388,8 @@ class MoshiConverterTest {
         }
 
         private fun withTestClient(
-                configure: ClientContentNegotiation.Config.() -> Unit,
-                handler: MockRequestHandler
+            configure: ContentNegotiationConfig.() -> Unit,
+            handler: MockRequestHandler
         ): HttpClient {
             return HttpClient(MockEngine) {
                 install(ClientContentNegotiation) {
