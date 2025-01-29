@@ -1,5 +1,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -27,6 +28,16 @@ dependencies {
     testImplementation(libs.kotlin.reflect)
     "kaptTest"(libs.moshi.codeGen)
 }
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "17"
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+
 
 tasks.test {
     useJUnitPlatform()

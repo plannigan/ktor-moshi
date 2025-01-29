@@ -12,9 +12,12 @@ application {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
 
+kotlin {
+    jvmToolchain(17)
+}
 dependencies {
     implementation(project(":core"))
     implementation(libs.ktor.server.netty)
