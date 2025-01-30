@@ -22,4 +22,4 @@ if [[ $# -gt 0 ]] && [[ "$1" == "client" ]]; then
   ./wait-for-it.sh -h "${host}" -p "${port}"
 fi
 
-java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -jar /app/sample.jar "${args[@]}"
+java -jar /app/sample.jar "${args[@]}"
