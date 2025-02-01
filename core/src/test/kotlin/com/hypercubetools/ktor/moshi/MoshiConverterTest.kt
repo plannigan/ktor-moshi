@@ -29,7 +29,6 @@ import io.ktor.http.withCharset
 import io.ktor.serialization.ContentConvertException
 import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -42,6 +41,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation as ClientContentNegotiation
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiationConfig
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation as ServerContentNegotiation
 
 const val SOME_PATH = "/test-path"
@@ -388,7 +388,7 @@ class MoshiConverterTest {
         }
 
         private fun withTestClient(
-                configure: ClientContentNegotiation.Config.() -> Unit,
+                configure: ContentNegotiationConfig.() -> Unit,
                 handler: MockRequestHandler
         ): HttpClient {
             return HttpClient(MockEngine) {
