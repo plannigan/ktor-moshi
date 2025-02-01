@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Update project dependencies:
     * JDK to `17`
-    * Kotlin to `1.9.25`
+    * Kotlin to `2.0.21`
     * moshi to `1.15.2`
 
 ### Internal
