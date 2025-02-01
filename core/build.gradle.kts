@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     `maven-publish`
     signing
     jacoco
@@ -26,7 +26,7 @@ dependencies {
     testImplementation(libs.ktor.client.mock)
     testImplementation(libs.ktor.client.contentNegotiation)
     testImplementation(libs.kotlin.reflect)
-    "kaptTest"(libs.moshi.codeGen)
+    kspTest(libs.moshi.codeGen)
 }
 
 tasks.withType<KotlinCompile> {

@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Internal
 
 - Update Gradle version
+- Switch from using KAPT to KSP
 
 ## [3.0.0] - 2023-05-22
 
