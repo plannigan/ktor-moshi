@@ -1,7 +1,7 @@
 name: Publish Release
 
 env:
-  JAVA_VERSION: "8"
+  JAVA_VERSION: "17"
   JAVA_DISTRIBUTION: "temurin"
 
 on:
