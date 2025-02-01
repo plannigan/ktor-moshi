@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     application
     alias(libs.plugins.shadow)
 }
@@ -30,5 +30,5 @@ dependencies {
     implementation(libs.logback)
     implementation(libs.moshi.adapters)
     implementation(libs.moshi)
-    "kapt"(libs.moshi.codeGen)
+    ksp(libs.moshi.codeGen)
 }

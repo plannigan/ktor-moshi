@@ -1,6 +1,7 @@
 [versions]
 kotlin = "1.9.25"
 ktor = "2.2.4"
+ksp = "1.9.25-1.0.20"
 moshi = "1.15.2"
 hamkrest = "1.8.0.1"
 junit = "5.9.2"
@@ -41,7 +42,7 @@ clikt = { group = "com.github.ajalt.clikt", name = "clikt", version.ref = "clikt
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
 nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }

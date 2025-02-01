@@ -3,7 +3,7 @@ import ru.vyarus.gradle.plugin.python.task.PythonTask
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.nexus)
     alias(libs.plugins.use.python)
 }
