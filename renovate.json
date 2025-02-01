@@ -12,7 +12,7 @@
   ],
 
   "enabledManagers": [
-    "docker",
+    "dockerfile",
     "docker-compose",
     "github-actions",
     "pip_requirements",
