@@ -25,12 +25,11 @@ nexusPublishing {
 
 python {
     scope = Scope.VIRTUALENV
-    pythonBinary = "python3.9"
     minPythonVersion = "3.9"
 }
 
 tasks.register<PythonTask>("hyperBumpIt") {
     description = "Bump the version number"
     module = "hyper_bump_it"
-    command = project.properties.get("args") ?: ""
+    command = project.properties["args"] ?: ""
 }
