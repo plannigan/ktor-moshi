@@ -35,7 +35,7 @@ jobs:
           IS_PRERELEASE=$([[ "${{ steps.get-new-version.outputs.version }}" == *-[a-z]* ]] && echo true || echo false)
           echo "result=${NEW_VERSION}" >> "${GITHUB_OUTPUT}"
       - name: Create Release
-        uses: ncipollo/release-action@a2e71bdd4e7dab70ca26a852f29600c98b33153e # v1.12.0
+        uses: ncipollo/release-action@cdcc88a9acf3ca41c16c37bb7d21b9ad48560d87 # v1.15.0
         with:
           tag: v${{ steps.get-new-version.outputs.version }}
           name: v${{ steps.get-new-version.outputs.version }} Release
