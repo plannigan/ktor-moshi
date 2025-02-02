@@ -8,7 +8,7 @@ junit = "5.11.4"
 logback = "1.5.16"
 clikt = "5.0.2"
 dokka = "2.0.0"
-shadow = "7.1.2"
+shadow = "8.3.5"
 nexus = "2.0.0"
 jacocolog = "3.1.0"
 use-python = "3.0.0"
@@ -45,7 +45,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 dokka-javadoc = { id = "org.jetbrains.dokka-javadoc", version.ref = "dokka" }
-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }
 jacocolog = { id = "org.barfuin.gradle.jacocolog", version.ref = "jacocolog" }
 use-python = { id = "ru.vyarus.use-python", version.ref = "use-python" }
