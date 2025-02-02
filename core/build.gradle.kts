@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     `maven-publish`
     signing
+    alias(libs.plugins.sigstore)
     jacoco
     alias(libs.plugins.jacocolog)
     alias(libs.plugins.dokka)
