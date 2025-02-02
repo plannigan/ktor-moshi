@@ -11,6 +11,7 @@ plugins {
     jacoco
     alias(libs.plugins.jacocolog)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.dokka.javadoc)
 }
 
 dependencies {
@@ -83,27 +84,21 @@ tasks.check {
 }
 
 // TODO: confirm javadoc packaging works as expected
-val dokkaJavadoc by tasks.getting(DokkaTask::class) {
-    outputDirectory.set(buildDir.resolve("dokka"))
+dokka {
+    dokkaPublications.html {
+        outputDirectory = layout.buildDirectory.dir("dokka/html")
+    }
+    dokkaPublications.javadoc {
+        outputDirectory = layout.buildDirectory.dir("dokka/javadoc")
+    }
 }
 
-val packageJavadoc by tasks.registering(Jar::class) {
-    dependsOn("dokkaJavadoc")
-    archiveClassifier.set("javadoc")
-    from(dokkaJavadoc.outputDirectory)
-}
-
-tasks.register<Jar>("dokkaHtmlJar") {
-    dependsOn(tasks.dokkaHtml)
-    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
-    archiveClassifier.set("html-docs")
-}
-
-tasks.register<Jar>("dokkaJavadocJar") {
-    dependsOn(tasks.dokkaJavadoc)
-    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+val dokkaJavadocJar by tasks.registering(Jar::class) {
+    dependsOn(tasks.dokkaGeneratePublicationJavadoc)
+    from(tasks.dokkaGeneratePublicationJavadoc.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")
 }
+
 
 val POM_ARTIFACT_ID: String by project
 val POM_NAME: String by project
@@ -127,7 +122,7 @@ publishing {
             from(components["java"])
 
             artifact(tasks.kotlinSourcesJar.get())
-            artifact(packageJavadoc.get())
+            artifact(dokkaJavadocJar.get())
 
             groupId = group.toString()
             artifactId = POM_ARTIFACT_ID
