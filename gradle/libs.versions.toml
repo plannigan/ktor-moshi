@@ -11,7 +11,7 @@ dokka = "2.0.0"
 shadow = "8.3.5"
 nexus = "2.0.0"
 jacocolog = "3.1.0"
-use-python = "3.0.0"
+use-python = "4.1.0"
 
 [libraries]
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
