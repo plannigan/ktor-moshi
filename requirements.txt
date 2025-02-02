@@ -1,1 +1,1 @@
-hyper-bump-it==0.5.1
+hyper-bump-it==0.5.3
