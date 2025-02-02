@@ -1,4 +1,6 @@
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
@@ -14,7 +16,7 @@ class SampleCli : CliktCommand() {
   }
 }
 
-class ClientCli : CliktCommand(name="client", help = "Use the client to connect to the server") {
+class ClientCli : CliktCommand(name="client") {
   private val host : String by option(help = "Host to connect to", metavar = "HOSTNAME").default("localhost")
   private val port : Int by option(help = "Port to connect to", metavar = "PORT").int().default(PORT)
   private val check : Boolean by option(help="Should the responses be validated").flag("--no-check")
@@ -22,13 +24,21 @@ class ClientCli : CliktCommand(name="client", help = "Use the client to connect 
   override fun run() {
     exitProcess(runClient(check, host, port))
   }
+
+  override fun help(context: Context): String {
+    return "Use the client to connect to the server"
+  }
 }
 
-class ServerCli : CliktCommand(name="server", help = "Start the server") {
+class ServerCli : CliktCommand(name="server") {
   private val port : Int by option(help = "Port to connect to", metavar = "PORT").int().default(PORT)
 
   override fun run() {
     exitProcess(runServer(port))
+  }
+
+  override fun help(context: Context): String {
+    return "Start the server"
   }
 }
 
