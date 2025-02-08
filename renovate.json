@@ -17,7 +17,23 @@
     "github-actions",
     "pip_requirements",
     "gradle",
-    "gradle-wrapper"
+    "gradle-wrapper",
+    "custom.regex"
+  ],
+
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "README\\.md"
+      ],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "badge\/kotlin-(?<currentValue>.+?)-blue"
+      ],
+      "datasourceTemplate": "maven",
+      "depNameTemplate": "org.jetbrains.kotlin:kotlin-stdlib"
+    }
   ],
 
   "packageRules": [
