@@ -29,7 +29,7 @@
       ],
       "matchStringsStrategy": "any",
       "matchStrings": [
-        "badge\/kotlin-(?<currentValue>.+?)-blue\\s"
+        "badge\/kotlin-(?<currentValue>.+?)-blue"
       ],
       "datasourceTemplate": "gradle",
       "depNameTemplate": "org.jetbrains.kotlin.jvm"
