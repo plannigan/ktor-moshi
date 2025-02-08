@@ -33,7 +33,7 @@ jobs:
         run: gradle core:assemble
 
       - name: Publish Artifacts
-        run: gradle core:publishToSonatype
+        run: gradle core:publishToSonatype core:closeAndReleaseSonatypeStagingRepository
         env:
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
