@@ -19,8 +19,8 @@ dependencies {
     api(libs.ktor.serialization)
     api(libs.moshi)
 
-    testImplementation(libs.junit.api)
-    testRuntimeOnly(libs.junit.engine)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation(libs.hamkrest)
     testImplementation(libs.ktor.server.testHost)
     testImplementation(libs.moshi.reflection)
