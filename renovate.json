@@ -32,7 +32,7 @@
         "badge\/kotlin-(?<currentValue>.+?)-blue"
       ],
       "datasourceTemplate": "maven",
-      "depNameTemplate": "kotlin-stdlib"
+      "depNameTemplate": "org.jetbrains.kotlin:kotlin-stdlib"
     }
   ],
 
