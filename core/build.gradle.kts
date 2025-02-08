@@ -21,6 +21,7 @@ dependencies {
 
     testImplementation(platform(libs.junit.bom))
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation(libs.hamkrest)
     testImplementation(libs.ktor.server.testHost)
     testImplementation(libs.moshi.reflection)
