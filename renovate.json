@@ -31,7 +31,7 @@
       "matchStrings": [
         "badge\/kotlin-(?<currentValue>.+?)-blue"
       ],
-      "datasourceTemplate": "gradle",
+      "datasourceTemplate": "maven",
       "depNameTemplate": "org.jetbrains.kotlin.jvm"
     }
   ],
