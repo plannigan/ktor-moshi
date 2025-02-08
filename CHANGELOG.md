@@ -16,7 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Internal
 
-- Update Gradle version
+- Update Gradle version & various gradle plugins
+- Update CI pipeline dependencies
+- Add SigStore signing support for released artifacts
 - Switch from using KAPT to KSP
 
 ## [3.0.0] - 2023-05-22
