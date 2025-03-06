@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.1.10"
 ktor = "3.0.3"
-ksp = "2.1.10-1.0.29"
+ksp = "2.1.10-1.0.31"
 moshi = "1.15.2"
 hamkrest = "1.8.0.1"
 junit = "5.11.4"
