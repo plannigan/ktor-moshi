@@ -32,7 +32,8 @@
         "badge\/kotlin-(?<currentValue>.+?)-blue"
       ],
       "datasourceTemplate": "maven",
-      "depNameTemplate": "org.jetbrains.kotlin:kotlin-stdlib"
+      "depTypeTemplate": "plugin",
+      "depNameTemplate": "org.jetbrains.kotlin.jvm"
     }
   ],
 
@@ -42,6 +43,13 @@
       "matchPackageNames": [
         "actions/upload-artifact",
         "actions/download-artifact"
+      ]
+    },
+    {
+      "groupName": "Kotlin/KSP Artifacts",
+      "matchDepNames": [
+        "com.google.devtools.ksp",
+        "org.jetbrains.kotlin.jvm"
       ]
     }
   ]
