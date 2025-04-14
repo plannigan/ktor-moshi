@@ -33,7 +33,7 @@
       ],
       "datasourceTemplate": "maven",
       "depTypeTemplate": "plugin",
-      "depNameTemplate": "org.jetbrains.kotlin.jvm",
+      "depNameTemplate": "org.jetbrains.kotlin.jvm.gradle.plugin",
       "registryUrlTemplate": "https://plugins.gradle.org/m2/"
     }
   ],
