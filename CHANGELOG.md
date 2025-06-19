@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Update project dependencies:
+    * Kotlin to `2.1.21`
+
 ## [4.0.0] - 2025-02-08
 
 ### Changed
