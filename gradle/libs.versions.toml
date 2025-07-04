@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.1.21"
-ktor = "3.1.1"
+ktor = "3.2.1"
 ksp = "2.1.21-2.0.2"
 moshi = "1.15.2"
 hamkrest = "1.8.0.1"
