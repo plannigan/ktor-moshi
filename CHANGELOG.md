@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Update project dependencies:
     * Ktor to `3.3.2`
-    * Kotlin to `2.2.21`
+    * Kotlin to `2.3.21`
 
 ## [4.0.0] - 2025-02-08
 
