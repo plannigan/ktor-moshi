@@ -20,8 +20,8 @@ dependencies {
     api(libs.moshi)
 
     testImplementation(platform(libs.junit.bom))
+    testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation(libs.hamkrest)
     testImplementation(libs.ktor.server.testHost)
     testImplementation(libs.moshi.reflection)
