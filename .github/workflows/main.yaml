@@ -23,6 +23,8 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-provider: basic
 
       - name: Check
         run: "gradle core:check"
@@ -64,6 +66,8 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-provider: basic
 
       - name: Build
         run: gradle assemble
