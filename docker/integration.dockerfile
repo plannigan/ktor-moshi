@@ -1,6 +1,6 @@
 ARG _GRADLE_SRC_ROOT=/home/gradle/src
 
-FROM gradle:8.14.3-jdk17@sha256:ce50078d456e497bc86b76d386503e84aa45416d85069ad66bc072bf07566b25 as build
+FROM gradle:8.14.5-jdk17@sha256:0ca05650e107c76a8e97bdb98cc21e73b61dca3d3ca2648107fa6714d8aa53a7 as build
 ARG _GRADLE_SRC_ROOT
 COPY --chown=root:root . /home/gradle/src
 WORKDIR /home/gradle/src
