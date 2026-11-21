@@ -6,7 +6,7 @@ COPY --chown=root:root . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle --no-daemon sample:shadowJar
 
-FROM eclipse-temurin:17.0.17_10-jre-noble@sha256:3421d7f073ded5491600707946dd7593502bdc87a18b3f234e7069574fb80401 as sample
+FROM eclipse-temurin:17.0.21.1_2-jre-noble@sha256:a9fc3bded7efe95fe0c06f3f5d7e5beea947925f729b71b61e39e0b9ddd4d7e3 as sample
 ARG _GRADLE_SRC_ROOT
 RUN mkdir /app
 COPY --chown=root:root docker/files/* /app/
